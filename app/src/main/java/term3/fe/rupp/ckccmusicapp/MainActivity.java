@@ -14,14 +14,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<String> songList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initData();
+        View decorView = getWindow().getDecorView();
+// Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -34,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyViewAdapter(songList);
+
+        mAdapter = new MyViewAdapter(DBConnector.getInstance(getApplicationContext()).getDBData());
         mRecyclerView.setAdapter(mAdapter);
 
     }
 
-    private void initData(){
+    private ArrayList<String> getArrayListData(){
+        ArrayList<String> songList = new ArrayList<>();
         songList = new ArrayList<String>();
         songList.add("Come Home for Dinner");
         songList.add("Blank Space");
@@ -53,5 +58,6 @@ public class MainActivity extends AppCompatActivity {
         songList.add("Blank Space");
         songList.add("Drag Me Down");
         songList.add("You song");
+        return songList;
     }
 }
