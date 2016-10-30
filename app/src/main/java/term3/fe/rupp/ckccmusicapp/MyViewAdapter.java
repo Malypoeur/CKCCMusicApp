@@ -22,10 +22,6 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.ViewHolder
 
     private static SongListener songListener;
 
-    public MyViewAdapter(ArrayList<String> data) {
-        this.data = data;
-    }
-
     public MyViewAdapter(Cursor cursor){
         this.cursor = cursor;
     }
@@ -60,7 +56,6 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.ViewHolder
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.viewholder_item_row, parent, false);
         // set the view's size, margins, paddings and layout parameters
-
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -68,7 +63,6 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         int pos = position + 1;
-//        holder.getTxtSongTitle().setText(pos + " . " + data.get(position));
         cursor.moveToPosition(position);
         holder.getTxtSongTitle().setText(pos + " . " + cursor.getString(0));
     }
@@ -76,6 +70,5 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return cursor.getCount();
-//        return data.size();
     }
 }

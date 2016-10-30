@@ -8,6 +8,40 @@
     android:orientation="vertical"
     tools:context="term3.fe.rupp.ckccmusicapp.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:visibility="gone"
+        android:background="@drawable/gradient_bg"
+        android:id="@+id/layoutSongDetail"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:text="Just Some Text"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/txtSongDetail"
+            />
+
+        <TextView
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:id="@+id/txtClose"
+            android:text="X"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/rounded_background"
+            android:textSize="26sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
 
     <ImageView
         android:layout_width="match_parent"
@@ -18,22 +52,6 @@
         android:layout_gravity="top"
         android:scaleType="centerCrop"
         />
-
-    <RelativeLayout
-        android:layout_width="372dp"
-        android:layout_height="200dp"
-        android:layout_gravity="top"
-        android:visibility="invisible"
-        android:background="@color/colorPrimary"
-        android:id="@+id/layoutSongDetail"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:id="@+id/txtSongDetail"
-            />
-    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"

@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initDetailLayout();
+        makeInvisibleDetailLayout();
 
         View decorView = getWindow().getDecorView();
         // Hide the status bar.
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSongTitleClickListener(String song_title) {
                         Log.d("Receiver: ", song_title);
+                        setDetailLayout(song_title);
+                        makeVisibleDetailLayout();
                     }
                 });
                 mRecyclerView.setAdapter(mAdapter);
@@ -58,21 +65,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<String> getArrayListData(){
-        ArrayList<String> songList = new ArrayList<>();
-        songList = new ArrayList<String>();
-        songList.add("Come Home for Dinner");
-        songList.add("Blank Space");
-        songList.add("Drag Me Down");
-        songList.add("You song");
-        songList.add("Come Home for Dinner");
-        songList.add("Blank Space");
-        songList.add("Drag Me Down");
-        songList.add("You song");
-        songList.add("Come Home for Dinner");
-        songList.add("Blank Space");
-        songList.add("Drag Me Down");
-        songList.add("You song");
-        return songList;
+    private void makeInvisibleDetailLayout(){
+        RelativeLayout relativeLayout = (RelativeLayout) this.findViewById(R.id.layoutSongDetail);
+        relativeLayout.setVisibility(View.GONE);
+        Log.d("MainActivity: ", relativeLayout.getVisibility()+"");
+    }
+
+    private void makeVisibleDetailLayout(){
+        RelativeLayout relativeLayout = (RelativeLayout) this.findViewById(R.id.layoutSongDetail);
+        relativeLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void initDetailLayout(){
+        TextView txtClose = (TextView) findViewById(R.id.txtClose);
+        txtClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makeInvisibleDetailLayout();
+            }
+        });
+    }
+
+    private void setDetailLayout(String songTitle){
+        TextView txtSongTitle = (TextView) findViewById(R.id.txtSongDetail);
+        txtSongTitle.setText(songTitle);
     }
 }
