@@ -1,5 +1,6 @@
 package term3.fe.rupp.ckccmusicapp;
 
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,14 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.ViewHolder
 
     private ArrayList<String> data;
 
+    private Cursor cursor;
+
     public MyViewAdapter(ArrayList<String> data) {
         this.data = data;
+    }
+
+    public MyViewAdapter(Cursor cursor){
+        this.cursor = cursor;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,11 +56,14 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         int pos = position + 1;
-        holder.getTxtSongTitle().setText(pos + " . " + data.get(position));
+//        holder.getTxtSongTitle().setText(pos + " . " + data.get(position));
+        cursor.moveToPosition(position);
+        holder.getTxtSongTitle().setText(pos + " . " + cursor.getString(0));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return cursor.getCount();
+//        return data.size();
     }
 }

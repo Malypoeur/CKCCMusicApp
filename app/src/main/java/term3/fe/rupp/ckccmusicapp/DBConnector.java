@@ -34,6 +34,13 @@ public class DBConnector extends SQLiteAssetHelper {
         super(context,MY_DB_NAME,null,1);
     }
 
+
+    public Cursor getCursorDBData(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM SONGS", null);
+        return cursor;
+    }
+
     public ArrayList<String> getDBData(){
         ArrayList<String> list = new ArrayList<>();
 
@@ -47,5 +54,4 @@ public class DBConnector extends SQLiteAssetHelper {
         }
         return list;
     }
-
 }

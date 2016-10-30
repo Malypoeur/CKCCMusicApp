@@ -1,5 +1,6 @@
 package term3.fe.rupp.ckccmusicapp;
 
+import android.database.Cursor;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         View decorView = getWindow().getDecorView();
-// Hide the status bar.
+        // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
@@ -38,9 +39,15 @@ public class MainActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
 
-        mAdapter = new MyViewAdapter(DBConnector.getInstance(getApplicationContext()).getDBData());
-        mRecyclerView.setAdapter(mAdapter);
-
+        DBManager dbManager = new DBManager(getApplicationContext()){
+            @Override
+            protected void onPostExecute(Cursor cursor) {
+                super.onPostExecute(cursor);
+                mAdapter = new MyViewAdapter(cursor);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        };
+        dbManager.execute(null,null,null);
     }
 
     private ArrayList<String> getArrayListData(){
