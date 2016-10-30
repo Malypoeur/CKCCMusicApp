@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MyViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -44,10 +45,17 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(Cursor cursor) {
                 super.onPostExecute(cursor);
                 mAdapter = new MyViewAdapter(cursor);
+                mAdapter.setSongListener(new SongListener() {
+                    @Override
+                    public void onSongTitleClickListener(String song_title) {
+                        Log.d("Receiver: ", song_title);
+                    }
+                });
                 mRecyclerView.setAdapter(mAdapter);
             }
         };
         dbManager.execute(null,null,null);
+
     }
 
     private ArrayList<String> getArrayListData(){

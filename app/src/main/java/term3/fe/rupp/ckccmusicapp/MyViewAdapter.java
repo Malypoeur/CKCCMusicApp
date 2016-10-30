@@ -20,12 +20,18 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.ViewHolder
 
     private Cursor cursor;
 
+    private static SongListener songListener;
+
     public MyViewAdapter(ArrayList<String> data) {
         this.data = data;
     }
 
     public MyViewAdapter(Cursor cursor){
         this.cursor = cursor;
+    }
+
+    public void setSongListener(SongListener songListener_){
+        songListener = songListener_;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -39,6 +45,12 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.ViewHolder
         public ViewHolder(View v) {
             super(v);
             txtSongTitle = (TextView) v.findViewById(R.id.txtSongTitle);
+            txtSongTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    songListener.onSongTitleClickListener(txtSongTitle.getText().toString());
+                }
+            });
         }
     }
 
